@@ -13,8 +13,8 @@ RSpec.describe Basket do
 
   let(:delivery_charge_rule) do
     delivery_charge_rule_data = [
-      { upper_limit: 90.00, cost: 0.00 },
       { upper_limit: 50.00, cost: 2.95 },
+      { upper_limit: 90.00, cost: 0.00 },
       { upper_limit: 0.00, cost: 4.95 }
     ]
     DeliveryChargeRule.new(delivery_charge_rule_data)

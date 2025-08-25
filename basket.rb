@@ -28,13 +28,12 @@ class Basket
 
   def offers_discount
     available_products = @products.dup
-    
+
     @offers.map do |offer|
       result = offer.apply(available_products)
-      # Remove the products that where used in the offer
+      # Remove the products that were used in the offer
       available_products -= result[:products_used]
       result[:discount]
     end.sum
   end
-
 end
