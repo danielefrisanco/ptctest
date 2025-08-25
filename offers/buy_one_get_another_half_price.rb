@@ -17,6 +17,6 @@ class BuyOneGetAnotherHalfPrice
       products_discounted = discountable_products.take(num_discounted_products * 2)
     end
     
-    { discount: discount, items_used: products_discounted }
+    { discount: discount, products_used: products_discounted }
   end
 end

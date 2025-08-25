@@ -44,6 +44,7 @@ Pushed to a public Github repo
 
 #Assumptions
 No Database
-initialize with hash
+Iinitialize with hash data
 I assume the offers are always buy one get another half price
 On the same product you can get a single offer, and on a discounted product you cannot get an offer
+The final total is rounded

@@ -3,10 +3,10 @@ class Basket
     @catalogue = catalogue
     @delivery_charge_rule = delivery_charge_rule
     @offers = offers
-    @products = {}
+    @products = []
   end
 
-  def add(product_code:)
+  def add(product_code)
     # get the product from the catalogue
     product = @catalogue.find_product(product_code)
 
@@ -14,13 +14,27 @@ class Basket
   end
 
   def total
-    products_total = subtotal
-    discounted_product_total = products_total - @offers.calculate_discount(self)
-    final_total = @delivery_charge_rule.find_charge(discounted_product_total)
-    final_total
+    discounted_product_total = subtotal - offers_discount
+    delivery_charge = @delivery_charge_rule.find_charge(discounted_product_total)
+    final_total = discounted_product_total + delivery_charge
+    final_total.round(2)
   end
+
   private
+
   def subtotal
     @products.sum(&:price)
   end
+
+  def offers_discount
+    available_products = @products.dup
+    
+    @offers.map do |offer|
+      result = offer.apply(available_products)
+      # Remove the products that where used in the offer
+      available_products -= result[:products_used]
+      result[:discount]
+    end.sum
+  end
+
 end
