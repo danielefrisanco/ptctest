@@ -44,7 +44,7 @@ RSpec.describe Basket do
       basket.add('R01')
       basket.add('R01')
       basket.add('R01')
-      expect(basket.total).to eq(85.33)
+      expect(basket.total).to eq(85.32)
     end
   end
   context 'total bigger than 90' do
@@ -70,11 +70,10 @@ RSpec.describe Basket do
       basket.add('B01')
       expect(basket.total).to eq(68.8)
       basket.add('R01')
-      expect(basket.total).to eq(85.28)
+      expect(basket.total).to eq(85.27)
     end
   end
   context 'can different set of rules give different results' do
-
     let(:delivery_charge_rule_2) do
       delivery_charge_rule_data = [
         { upper_limit: 50.00, cost: 0.00 },
@@ -97,8 +96,60 @@ RSpec.describe Basket do
       basket2.add('R01')
       basket2.add('B01')
       basket2.add('B01')
-      expect(basket1.total).to eq(68.28)
-      expect(basket2.total).to eq(80.78)
+      expect(basket1.total).to eq(68.27)
+      expect(basket2.total).to eq(80.77)
+    end
+  end
+  context 'example tests' do
+    it 'calculates the correct total for basket 1' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: offers)
+      basket.add('B01')
+      basket.add('G01')
+      expect(basket.total).to eq(37.85)
+    end
+    it 'calculates the correct total for basket 2' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: offers)
+      basket.add('R01')
+      basket.add('R01')
+      expect(basket.total).to eq(54.37)
+    end
+    it 'calculates the correct total for basket 3' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: offers)
+      basket.add('R01')
+      basket.add('G01')
+      expect(basket.total).to eq(60.85)
+    end
+    it 'calculates the correct total for basket 4' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: offers)
+      basket.add('B01')
+      basket.add('B01')
+      basket.add('R01')
+      basket.add('R01')
+      basket.add('R01')
+      expect(basket.total).to eq(98.27)
+    end
+  end
+  context 'no offers' do
+    let(:no_offers) do
+      []
+    end
+    it 'calculates the correct total for basket' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: no_offers)
+      basket.add('R01')
+      basket.add('R01')
+      expect(basket.total).to eq(68.85)
+    end
+  end
+
+  context 'no delivery charges' do
+    let(:no_delivery_charge_rule) do
+      DeliveryChargeRule.new([])
+    end
+    it 'calculates the correct total for basket' do
+      basket = described_class.new(catalogue: catalogue, delivery_charge_rule: no_delivery_charge_rule, offers: offers)
+      basket.add('R01')
+      basket.add('R01')
+      expect(basket.total).to eq(49.42)
     end
   end
 end

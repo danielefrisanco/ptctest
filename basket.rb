@@ -17,7 +17,7 @@ class Basket
     discounted_product_total = subtotal - offers_discount
     delivery_charge = @delivery_charge_rule.find_charge(discounted_product_total)
     final_total = discounted_product_total + delivery_charge
-    final_total.round(2)
+    final_total.truncate(2)
   end
 
   private

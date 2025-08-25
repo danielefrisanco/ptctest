@@ -47,13 +47,14 @@ Pushed to a public Github repo
 - Initialize with hash data
 - I assume the offers are always buy one get another half price
 - On the same product you can get a single offer, and on a discounted product you cannot get an offer
-- The final total is rounded
+- The final total is truncated
 - Delivery charge is otherwise 0
 
 # Explanation
 The code is divided in data models, offers and the basket class
 
 ## Data models
+Contains the data and its logic
 ### Product
 The product is just a container for the product data
 ### Catalogue

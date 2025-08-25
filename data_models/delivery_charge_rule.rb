@@ -7,7 +7,7 @@ class DeliveryChargeRule
   def find_charge(total)
     return 0 if total.nil?
 
-    rule = @rules.find { |rule| total >= rule[:upper_limit] }
-    rule ? rule[:cost] : 0
+    charging_rule = @rules.find { |rule| total >= rule[:upper_limit] }
+    charging_rule ? charging_rule[:cost] : 0
   end
 end
