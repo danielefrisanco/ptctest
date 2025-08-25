@@ -1,3 +1,4 @@
+require_relative 'product'
 class Catalogue
   def initialize(products)
     @products = products.map do |product_data|

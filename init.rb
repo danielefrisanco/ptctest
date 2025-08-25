@@ -1,5 +1,4 @@
 require_relative 'data_models/catalogue'
-require_relative 'data_models/product'
 require_relative 'data_models/delivery_charge_rule'
 require_relative 'offers/buy_one_get_another_half_price'
 require_relative 'basket'
@@ -23,4 +22,7 @@ OFFERS = [
   BuyOneGetAnotherHalfPrice.new(product_code: 'R01')
 ]
 
-Basket.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: OFFERS)
+basket = Basket.new(catalogue: catalogue, delivery_charge_rule: delivery_charge_rule, offers: OFFERS)
+
+basket.add('R01')
+puts "$#{basket.total}"

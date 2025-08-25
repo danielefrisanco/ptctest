@@ -42,9 +42,55 @@ Pushed to a public Github repo
 
 
 
-#Assumptions
-No Database
-Iinitialize with hash data
-I assume the offers are always buy one get another half price
-On the same product you can get a single offer, and on a discounted product you cannot get an offer
-The final total is rounded
+# Assumptions
+- No Database
+- Initialize with hash data
+- I assume the offers are always buy one get another half price
+- On the same product you can get a single offer, and on a discounted product you cannot get an offer
+- The final total is rounded
+- Delivery charge is otherwise 0
+
+# Explanation
+The code is divided in data models, offers and the basket class
+
+## Data models
+### Product
+The product is just a container for the product data
+### Catalogue
+It contains the list of products and the logic to search them
+### Delivery charge rule
+It contains the logic to calculate the charge according to the rules
+
+## Offers
+One class for each type of offer that holds its own logic and it is independent from the data
+Every new kind of offer will need a new class.
+
+## Basket
+Given a possible catalogue, the offers to apply to it and the delivery charge rule it manages the list of products added and calculates the total.
+The logic for calculation of offers and delivery charge is not in this class
+
+# Explanation
+So if an offer or the delivery charge is changed the basket is not afected
+
+Classes are small and the public interfaces are minimal
+
+The basket have dependencies that are passed in the initialize, so different baskets can be created with different set of offers and catalogues and delivery charges 
+
+The offers are strategies that the basket uses, so you can create new offers and delivery rules to change the behaviour of the basket
+
+
+# TEST
+
+```bash
+# Install dependencies
+bundle install
+# Run tests
+rspec
+```
+
+# RUN
+
+You can try it this way 
+```bash
+ruby init.rb 
+```
