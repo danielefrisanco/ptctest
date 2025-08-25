@@ -7,12 +7,20 @@ class Basket
   end
 
   def add(product_code:)
+    # get the product from the catalogue
+    product = @catalogue.find_product(product_code)
+
+    @products << product if product
   end
 
-  def total()
-    products_total = @products.sum
-    discounted_product_total = @offers.calculate_discount(self)
+  def total
+    products_total = subtotal
+    discounted_product_total = products_total - @offers.calculate_discount(self)
     final_total = @delivery_charge_rule.find_charge(discounted_product_total)
     final_total
+  end
+  private
+  def subtotal
+    @products.sum(&:price)
   end
 end

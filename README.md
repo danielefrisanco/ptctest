@@ -45,5 +45,5 @@ Pushed to a public Github repo
 #Assumptions
 No Database
 initialize with hash
-I assume the offers are always buy one get another with a certain discount
+I assume the offers are always buy one get another half price
 On the same product you can get a single offer, and on a discounted product you cannot get an offer
